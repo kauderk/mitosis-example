@@ -1,0 +1,62 @@
+{
+	"name": "sveltosis-example",
+	"private": true,
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "svelte-kit sync && svelte-package && yarn build:mitosis",
+		"build:mitosis": "mitosis build -c mitosis.config.cjs",
+		"test": "playwright test",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"story:dev": "histoire dev",
+		"story:build": "histoire build",
+		"story:preview": "histoire preview"
+	},
+	"devDependencies": {
+		"@histoire/plugin-svelte": "^0.15.8",
+		"@playwright/test": "^1.25.0",
+		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/kit": "^1.8.3",
+		"@sveltejs/package": "^2.0.2",
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/forms": "^0.5.3",
+		"@tailwindcss/line-clamp": "^0.4.2",
+		"@tailwindcss/typography": "^0.5.7",
+		"@typescript-eslint/eslint-plugin": "^5.27.0",
+		"@typescript-eslint/parser": "^5.27.0",
+		"autoprefixer": "^10.4.7",
+		"eslint": "^8.16.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"histoire": "^0.15.8",
+		"postcss": "^8.4.14",
+		"postcss-load-config": "^4.0.1",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.8.0",
+		"replace-in-file": "^6.3.5",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.7",
+		"tailwindcss": "^3.1.5",
+		"tslib": "^2.3.1",
+		"typescript": "^4.7.4",
+		"vite": "^4.1.4",
+		"vite-plugin-run": "^0.2.0"
+	},
+	"type": "module",
+	"dependencies": {
+		"@builder.io/mitosis": "^0.0.91",
+		"@builder.io/mitosis-cli": "^0.0.50",
+		"class-variance-authority": "^0.2.4"
+	},
+	"exports": {
+		"./tailwind": "./tailwind.config.cjs",
+		"./react": "./dist/react/src/lib/index.js",
+		"./vue": "./dist/vue/src/lib/index.js",
+		"./svelte": "./src/lib/index.js",
+		"./angular": "./dist/angular/src/lib/index.js"
+	}
+}
