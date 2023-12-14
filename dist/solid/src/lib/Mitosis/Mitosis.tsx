@@ -1,3 +1,5 @@
+/** @jsxImportSource solid-js */
+
 import { createSignal } from 'solid-js';
 
 import { css } from 'solid-styled-components';
