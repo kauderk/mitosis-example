@@ -1,0 +1,19 @@
+class {
+	declare state: { name: string };
+	onCreate() {
+		this.state = { name: 'Steve' };
+	}
+}
+style {
+	.input-471dcc0e {
+		color: red;
+	}
+}
+<div>
+	<input
+		class='input-471dcc0e'
+		value=state.name
+		on-input((event) => (state.name = event.currentTarget.value))
+	>
+	 Hello! I can run in React, Vue, Solid, or Liquid!
+</div>
