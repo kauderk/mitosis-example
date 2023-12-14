@@ -2,7 +2,8 @@
 
 import { useState } from '@builder.io/mitosis';
 
-export default function MyComponent(props) {
+// should mitosis compile if there are type errors?
+export default function MyComponent(props: {}) {
   const [name, setName] = useState('Steve');
 
   return (
