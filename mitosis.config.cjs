@@ -3,6 +3,7 @@ module.exports = {
 	dest: 'dist',
 	targets: ['solid', 'qwik', 'marko', 'svelte'],
 	options: {
+		// does mitosis uses this "jsxImportSource" config?
 		solid: {
 			typescript: true,
 			jsxImportSource: 'solid-js'

@@ -1,20 +1,20 @@
 <script lang="ts">
-	let name = 'Steve';
+  let name = 'Steve';
 </script>
 
 <div>
-	<input
-		class="input"
-		value={name}
-		on:change={(event) => {
-			name = event.currentTarget.value;
-		}}
-	/>
-	Hello! I can run in React, Vue, Solid, or Liquid!
+  <input
+    class="input"
+    value={name}
+    on:change={(event) => {
+      name = event.currentTarget.value;
+    }}
+  />
+  Hello! I can run in React, Vue, Solid, or Liquid!
 </div>
 
 <style>
-	.input {
-		color: red;
-	}
+  .input {
+    color: red;
+  }
 </style>
