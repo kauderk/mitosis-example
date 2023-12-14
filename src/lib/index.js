@@ -1,5 +1,3 @@
-import Button from './Button/Button.svelte';
+import Mitosis from './Mitosis/Mitosis.lite';
 
-export {
-	Button,
-};
+export { Mitosis };

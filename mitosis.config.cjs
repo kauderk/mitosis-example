@@ -1,16 +1,21 @@
 module.exports = {
 	files: 'src/lib/**/*',
 	dest: 'dist',
-	targets: ['react', 'vue'],
+	targets: ['solid', 'qwik', 'marko', 'svelte'],
 	options: {
-		angular: {
+		solid: {
+			typescript: true,
+			jsxImportSource: 'solid-js'
+		},
+		qwik: {
+			typescript: true,
+			jsxImportSource: '@builder.io/qwik'
+		},
+		marko: {
 			typescript: true
 		},
-		react: {
+		svelte: {
 			typescript: true
-		},
-		vue: {
-			version: 3
 		}
 	},
 	getTargetPath: ({ target }) => {
