@@ -1,31 +1,31 @@
 {
-	"name": "mitosis-example",
-	"version": "0.0.1",
-	"type": "module",
-	"scripts": {
-		"build": "mitosis build -c mitosis.config.cjs"
-	},
-	"devDependencies": {
-		"@builder.io/qwik": "^1.3.0",
-		"autoprefixer": "^10.4.7",
-		"marko": "^5.32.2",
-		"postcss": "^8.4.14",
-		"prettier": "^2.7.1",
-		"solid-js": "^1.8.7",
-		"solid-styled-components": "^0.28.5",
-		"svelte": "^3.44.0",
-		"tailwindcss": "^3.1.5",
-		"typescript": "^4.7.4",
-		"vite": "^4.1.4"
-	},
-	"dependencies": {
-		"@builder.io/mitosis": "^0.0.91",
-		"@builder.io/mitosis-cli": "^0.0.50"
-	},
-	"exports": {
-		"./solid": "./dist/solid/src/lib/index.js",
-		"./qwik": "./dist/qwik/src/lib/index.js",
-		"./marko": "./dist/marko/src/lib/index.js",
-		"./svelte": "./dist/svelte/src/lib/index.js"
-	}
+  "name": "mitosis-example",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "mitosis build -c mitosis.config.cjs"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "^1.3.0",
+    "autoprefixer": "^10.4.7",
+    "marko": "^5.32.2",
+    "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
+    "solid-js": "^1.8.7",
+    "solid-styled-components": "^0.28.5",
+    "svelte": "^3.44.0",
+    "tailwindcss": "^3.1.5",
+    "typescript": "^4.7.4",
+    "vite": "^4.1.4"
+  },
+  "dependencies": {
+    "@builder.io/mitosis": "0.0.137",
+    "@builder.io/mitosis-cli": "0.0.96"
+  },
+  "exports": {
+    "./solid": "./dist/solid/src/lib/index.js",
+    "./qwik": "./dist/qwik/src/lib/index.js",
+    "./marko": "./dist/marko/src/lib/index.js",
+    "./svelte": "./dist/svelte/src/lib/index.js"
+  }
 }
