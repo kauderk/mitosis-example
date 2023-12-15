@@ -1,0 +1,41 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      // ----------- JSX -----------
+      {
+        "scope": ["meta.jsx.children.tsx"],
+        "settings": {
+          "foreground": "#B59E7A"
+        }
+      },
+      // reset what the above is overwriting
+      {
+        "scope": ["punctuation.separator.parameter.tsx"],
+
+        "settings": {
+          "foreground": "#BFC7D5"
+        }
+      },
+      // ----------- SVELTE -----------
+      {
+        "scope": ["text.svelte"],
+        "settings": {
+          "foreground": "#B59E7A"
+        }
+      },
+      {
+        "scope": ["punctuation.terminator.statement.tsx"],
+        "settings": {
+          "foreground": "#BFC7D5"
+        }
+      },
+      // ----------- MARKO -----------
+      {
+        "scope": ["text.marko"],
+        "settings": {
+          "foreground": "#B59E7A"
+        }
+      }
+    ]
+  }
+}

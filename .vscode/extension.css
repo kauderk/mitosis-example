@@ -1,0 +1,73 @@
+/* note: using ".view-lines>div>" to increase specificity/perforrmance */
+
+/* jsx begin ( ) and end } */
+.view-lines>div>span:has(.mtk10+.mtk1+.mtk1[class*='bracket-highlighting']:last-child) :is(:last-child,:nth-child(2)),
+.view-lines>div>span:has(.mtk1:first-child+.mtk1[class*='bracket-highlighting']+.mtk1:last-child),
+.view-lines>div>span > [class*='bracket-highlighting']:first-child:last-child,
+
+/* jsx closing tag: </tag> */                         /*jsx or marko*/
+.view-lines>div>span:has(:nth-last-child(3).mtk13+:is(.mtk14,.mtk10)+.mtk13) :is(:nth-last-child(3),:nth-last-child(2),:last-child),
+/* jsx closing tag: </tag> in between text */
+.view-lines>div>span:has(:nth-last-child(5).mtk34+.mtk13+.mtk14+.mtk13+.mtk1) :is(:nth-last-child(4),:nth-last-child(3),:nth-last-child(2),:last-child),
+/* jsx closing tag: </tag after text */
+.view-lines>div>span:has(:nth-last-child(3).mtk34:not(:first-child)+.mtk13+.mtk14) :is(:nth-last-child(2),:last-child),
+/* jsx attributes { } */
+.view-lines>div>span .mtk17[class*='bracket-highlighting'],
+
+
+/* <tag> the first one in a line */
+.view-lines>div>span :nth-child(2)[class="mtk13"],
+.view-lines>div>span :nth-child(2)[class="mtk13"]+.mtk14+.mtk13,
+/* > after jsx attribute } */                                             /* it should ignore its own kind, or the bracket that is actual javascript*/
+.view-lines>div>span .mtk17[class*='bracket-highlighting']+.mtk13:not(:is(.bracket-highlighting-3,.bracket-highlighting-4,.bracket-highlighting-1)),
+/* last > after jsx attribute } */
+.view-lines>div>span .mtk17+.mtk13+.mtk13:last-child,
+
+
+/* > after marko } in single line */
+.view-lines>div>span:has(.mtk34+.mtk34.bracket-highlighting-0+.mtk13) :last-child,
+/* > after marko ) in line end */
+.view-lines>div>span:has(.mtk1:nth-last-child(2)+.mtk13) :last-child,
+/* > after marko variable in line end */
+.view-lines>div>span:has(:nth-last-child(2).mtk13) :first-child.mtk13+:last-child.mtk13,
+/* /> after marko variable */
+.view-lines>div>span:has(.mtk1+.mtk10+.mtk13+.mtk13:last-child) :last-child,
+
+/* > after a quotation marks */
+.view-lines>div>span:has(:nth-last-child(2).mtk20) :last-child.mtk13,
+/* > before text 
+.view-lines>div>span .mtk13:has(+ .mtk34), */
+
+
+/* < */
+.view-lines>div>span>.mtk13:first-child,
+.view-lines>div>span:has(:nth-child(3).mtk14) :nth-child(2).mtk13,
+/* < after the return keyword */
+.view-lines>div>span:has(:nth-child(2).mtk10.mtki+.mtk34+.mtk13+.mtk14) :nth-child(4).mtk13,
+
+/* quotation marks */
+.view-lines>div>span .mtk20:not(:last-child):not(:has(+ :is(.mtk13,.mtk12,.mtk20,.mtk17,.mtk1,.mtk20+.mtk34))),
+.view-lines>div>span .mtk4+.mtk20,
+
+
+/* jsx ternary operation ? ( ) : null } */
+.view-lines>div>span:has(.mtk34+.mtk13+.mtk34+.bracket-highlighting-4:last-child) :last-child,
+.view-lines>div>span:has(.mtk34+.bracket-highlighting-4+.mtk34+.mtk13+.mtk34+.mtk19+.bracket-highlighting-3:last-child),
+
+
+/* svelte {#block } {/block} operators */
+.view-lines>div>span:has(.mtk1.bracket-highlighting-0:nth-child(2):not(:last-child)) :is(:nth-child(1),:nth-child(2),:nth-child(3),:last-child),
+.view-lines>div>span:has(:nth-child(3)):has(.mtk1.bracket-highlighting-0:nth-child(2)):not(:has(:nth-child(6))),
+
+
+/* marko <if( )>< operators - bug, it triggers one selector above*/
+.view-lines>div>span:has(.mtk1.bracket-highlighting-0:nth-child(4):not(:last-child)) :is(:nth-child(4),:nth-last-child(2),:last-child),
+
+
+/* marko end line ( )*/
+.view-lines>div>span:has(:is(.mtk5,.mtk34)+.mtk1.bracket-highlighting-0:last-child) :last-child {
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
