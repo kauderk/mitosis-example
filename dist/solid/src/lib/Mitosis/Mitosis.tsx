@@ -1,24 +1,9 @@
-/** @jsxImportSource solid-js */
+export interface MyComponentProps {}
 
-import { createSignal } from 'solid-js';
+function MyComponent(props: MyComponentProps) {
+  let ref;
 
-import { css } from 'solid-styled-components';
-
-function MyComponent(props: any) {
-  const [name, setName] = createSignal('Steve');
-
-  return (
-    <div>
-      <input
-        class={css({
-          color: 'red'
-        })}
-        value={name()}
-        onInput={(event) => setName(event.currentTarget.value)}
-      />
-      Hello! I can run in React, Vue, Solid, or Liquid!
-    </div>
-  );
+  return <div ref={ref!}>Hello</div>;
 }
 
 export default MyComponent;

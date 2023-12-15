@@ -1,21 +1,7 @@
 class {
-	// mitosis might have to create speciall handlers
-	// for speciall cases like marko when it comes down to type types
-	declare state: { name: string };
-	onCreate() {
-		this.state = { name: 'Steve' };
-	}
+  get ref() {
+    return this.getEl("ref");
+  }
 }
-style {
-	.input-471dcc0e {
-		color: red;
-	}
-}
-<div>
-	<input
-		class='input-471dcc0e'
-		value=state.name
-		on-input((event) => (state.name = event.currentTarget.value))
-	>
-	 Hello! I can run in React, Vue, Solid, or Liquid!
-</div>
+
+<div key="ref">Hello</div>
