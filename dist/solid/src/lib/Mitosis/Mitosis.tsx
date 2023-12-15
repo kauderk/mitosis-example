@@ -1,9 +1,11 @@
-export interface MyComponentProps {}
+/** @jsxImportSource solid-js */
+
+export interface MyComponentProps {
+  id: string;
+}
 
 function MyComponent(props: MyComponentProps) {
-  let ref;
-
-  return <div ref={ref!}>Hello</div>;
+  return <label htmlFor="label">{'label'}</label>;
 }
 
 export default MyComponent;
