@@ -1,3 +1,2 @@
 import Mitosis from './Mitosis/Mitosis';
-
-export { Mitosis };
+export { Mitosis }
