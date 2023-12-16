@@ -1,4 +1,28 @@
-const table = {
+const Table = {
+  root: '.view-lines>div>span',
+  controlKeyword: 'mtk10',
+  blank: 'mtk1',
+  jsxMarker: 'mtk13',
+  text: 'mtk34',
+  jsxTag: 'mtk14',
+  jsxBracket: 'mtk17',
+  quotationMark: 'mtk20',
+  bracket: 'bracket-highlighting',
+  glue: 'mtki',
+  quote: 'mtk4',
+  brace: 'mtk5',
+  colon: 'mtk19',
+  other: 'mtk12',
+  endJsx: 'mtk1'
+};
+const Derived = {
+  singleLineControlKeyword: `${Table.controlKeyword}.${Table.glue}+.${Table.text}`,
+  quotaionMarkBlank: Table.text,
+  quotaionMarkJsxMarker: Table.jsxMarker,
+  singleQuote: true
+};
+
+const webTable = {
   root: '.view-lines>div>span',
   controlKeyword: 'mtk4',
   blank: 'mtk1',
@@ -13,31 +37,28 @@ const table = {
   brace: 'mtk1',
   colon: 'mtk5',
   other: 'mtk16',
-  semicolorTerminator: 'mtk17'
-};
-const derived = {
-  singleLineControlKeyword: `${table.controlKeyword}+.${table.glue}`,
-  endJsx: `${table.semicolorTerminator}`,
-  quotaionMark: {
-    blank: table.blank,
-    jsxMarker: table.controlKeyword
-  },
+  endJsx: 'mtk17'
+} satisfies typeof Table;
+const webDerived = {
+  singleLineControlKeyword: `${webTable.controlKeyword}+.${webTable.glue}`,
+  quotaionMarkBlank: webTable.blank,
+  quotaionMarkJsxMarker: webTable.controlKeyword,
   singleQuote: false
-};
+} satisfies typeof Derived;
 
 // prettier-ignore
-const style = `
-  /* note: using ".view-lines>div>" to increase specificity/perforrmance */
+const generateStyles = (table: typeof Table, derived: typeof Derived) => `
+/* note: using ".view-lines>div>" to increase specificity/perforrmance */
 
-  /* jsx begin ( ) and end } */
-  ${table.root}:has(.${table.controlKeyword}:nth-child(2)+.${table.blank}+.${table.blank}[class*='${table.bracket}']:last-child) :is(:last-child,:nth-child(2)),
-${table.root}:has(.${table.blank}:first-child+.${table.blank}[class*='${table.bracket}']+.${derived.endJsx}:last-child),
+/* jsx begin ( ) and end } */
+${table.root}:has(.${table.controlKeyword}:nth-child(2)+.${table.blank}+.${table.blank}[class*='${table.bracket}']:last-child) :is(:last-child,:nth-child(2)),
+${table.root}:has(.${table.blank}:first-child+.${table.blank}[class*='${table.bracket}']+.${table.endJsx}:last-child),
 ${table.root} > [class*='${table.bracket}']:first-child:last-child,
 
 /* jsx closing tag: </tag> */                         /*jsx or marko*/
 ${table.root}:has(:nth-last-child(3).${table.jsxMarker}+:is(.${table.jsxTag},.${table.controlKeyword})+.${table.jsxMarker}) :is(:nth-last-child(3),:nth-last-child(2),:last-child),
 /* jsx closing tag: </tag> in between text */
-${table.root}:has(:nth-last-child(5).${table.text}+.${table.jsxMarker}+.${table.jsxTag}+.${table.jsxMarker}+.${derived.endJsx}) :is(:nth-last-child(4),:nth-last-child(3),:nth-last-child(2),:last-child),
+${table.root}:has(:nth-last-child(5).${table.text}+.${table.jsxMarker}+.${table.jsxTag}+.${table.jsxMarker}+.${table.endJsx}) :is(:nth-last-child(4),:nth-last-child(3),:nth-last-child(2),:last-child),
 /* jsx closing tag: </tag after text */
 ${table.root}:has(:nth-last-child(3).${table.text}:not(:first-child)+.${table.jsxMarker}+.${table.jsxTag}) :is(:nth-last-child(2),:last-child),
 /* jsx attributes { } */
@@ -80,8 +101,8 @@ ${table.root} .${table.quote}+.${table.quotationMark},
 ${!derived.singleQuote ? '*/': ''}
 
 /* jsx ternary operation ? ( ) : null } */
-${table.root}:has(.${derived.quotaionMark.blank}+.${derived.quotaionMark.jsxMarker}+.${derived.quotaionMark.blank}+.${table.bracket}-4:last-child) :last-child,
-${table.root}:has(.${derived.quotaionMark.blank}+.${table.bracket}-4+.${derived.quotaionMark.blank}+.${derived.quotaionMark.jsxMarker}+.${derived.quotaionMark.blank}+.${table.colon}+.${table.bracket}-3:last-child),
+${table.root}:has(.${derived.quotaionMarkBlank}+.${derived.quotaionMarkJsxMarker}+.${derived.quotaionMarkBlank}+.${table.bracket}-4:last-child) :last-child,
+${table.root}:has(.${derived.quotaionMarkBlank}+.${table.bracket}-4+.${derived.quotaionMarkBlank}+.${derived.quotaionMarkJsxMarker}+.${derived.quotaionMarkBlank}+.${table.colon}+.${table.bracket}-3:last-child),
 
 
 /* svelte {#block } {/block} operators */
@@ -102,4 +123,6 @@ ${table.root}:has(:is(.${table.brace},.${table.text})+.${table.blank}.${table.br
   }
 `;
 
-console.log(style);
+const styles = generateStyles(Table, Derived);
+const webStyles = generateStyles(webTable, webDerived);
+console.log(styles);
