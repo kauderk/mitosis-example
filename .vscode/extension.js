@@ -13,7 +13,7 @@ const table = {
   brace: 'mtk5',
   colon: 'mtk19',
   other: 'mtk12',
-  semicolorTerminator: 'mtk17'
+  semicolorTerminator: 'mtk1'
 };
 const derived = {
   singleLineControlKeyword: `${table.controlKeyword}.${table.glue}+.${table.text}`,
