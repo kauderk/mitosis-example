@@ -1,4 +1,4 @@
-const Table = {
+const testVsCode = {
   root: '.view-lines>div>span',
   controlKeyword: 'mtk10',
   blank: 'mtk1',
@@ -13,16 +13,18 @@ const Table = {
   brace: 'mtk5',
   colon: 'mtk19',
   other: 'mtk12',
-  endJsx: 'mtk1'
-};
-const Derived = {
-  singleLineControlKeyword: `${Table.controlKeyword}.${Table.glue}+.${Table.text}`,
-  quotaionMarkBlank: Table.text,
-  quotaionMarkJsxMarker: Table.jsxMarker,
-  singleQuote: true
+  endJsx: 'mtk1',
+  get derived() {
+    return {
+      singleLineControlKeyword: `${this.controlKeyword}.${this.glue}+.${this.text}`,
+      quotaionMarkBlank: this.blank,
+      quotaionMarkJsxMarker: this.controlKeyword,
+      singleQuote: true
+    };
+  }
 };
 
-const webTable = {
+const webVsCode = {
   root: '.view-lines>div>span',
   controlKeyword: 'mtk4',
   blank: 'mtk1',
@@ -37,17 +39,46 @@ const webTable = {
   brace: 'mtk1',
   colon: 'mtk5',
   other: 'mtk16',
-  endJsx: 'mtk17'
-} satisfies typeof Table;
-const webDerived = {
-  singleLineControlKeyword: `${webTable.controlKeyword}+.${webTable.glue}`,
-  quotaionMarkBlank: webTable.blank,
-  quotaionMarkJsxMarker: webTable.controlKeyword,
-  singleQuote: false
-} satisfies typeof Derived;
+  endJsx: 'mtk17',
+  get derived() {
+    return {
+      singleLineControlKeyword: `${this.controlKeyword}+.${this.glue}`,
+      quotaionMarkBlank: this.blank,
+      quotaionMarkJsxMarker: this.controlKeyword,
+      singleQuote: false
+    };
+  }
+} satisfies typeof testVsCode;
+
+const emptyVsCode = {
+  root: '.view-lines>div>span',
+  controlKeyword: 'mtk18',
+  blank: 'mtk1',
+  jsxMarker: 'mtk14',
+  text: 'mtk21',
+  domTag: 'mtk6',
+  jsxTag: 'mtk17',
+  jsxBracket: 'mtk6',
+  quotationMark: 'mtk12',
+  bracket: 'bracket-highlighting',
+  glue: 'mtk23',
+  quote: 'mtk4',
+  brace: 'mtk1',
+  colon: 'mtk6',
+  other: 'mtk12',
+  endJsx: 'mtk22',
+  get derived() {
+    return {
+      singleLineControlKeyword: `${this.controlKeyword}+.${this.glue}`,
+      quotaionMarkBlank: this.glue,
+      quotaionMarkJsxMarker: 'mtk3',
+      singleQuote: false
+    };
+  }
+};
 
 // prettier-ignore
-const generateStyles = (table: typeof Table, derived: typeof Derived) => `
+const generateStyles = ({derived,...table}: typeof testVsCode & {domTag?:string}) => `
 /* note: using ".view-lines>div>" to increase specificity/perforrmance */
 
 /* jsx begin ( ) and end } */
@@ -56,9 +87,9 @@ ${table.root}:has(.${table.blank}:first-child+.${table.blank}[class*='${table.br
 ${table.root} > [class*='${table.bracket}']:first-child:last-child,
 
 /* jsx closing tag: </tag> */                         /*jsx or marko*/
-${table.root}:has(:nth-last-child(3).${table.jsxMarker}+:is(.${table.jsxTag},.${table.controlKeyword})+.${table.jsxMarker}) :is(:nth-last-child(3),:nth-last-child(2),:last-child),
+${table.root}:has(:nth-last-child(3).${table.jsxMarker}+:is(.${table.jsxTag},.${table.domTag},.${table.controlKeyword})+.${table.jsxMarker}) :is(:nth-last-child(3),:nth-last-child(2),:last-child),
 /* jsx closing tag: </tag> in between text */
-${table.root}:has(:nth-last-child(5).${table.text}+.${table.jsxMarker}+.${table.jsxTag}+.${table.jsxMarker}+.${table.endJsx}) :is(:nth-last-child(4),:nth-last-child(3),:nth-last-child(2),:last-child),
+${table.root}:has(:nth-last-child(5).${table.text}+.${table.jsxMarker}+:is(.${table.jsxTag},.${table.domTag})+.${table.jsxMarker}+.${table.endJsx}) :is(:nth-last-child(4),:nth-last-child(3),:nth-last-child(2),:last-child),
 /* jsx closing tag: </tag after text */
 ${table.root}:has(:nth-last-child(3).${table.text}:not(:first-child)+.${table.jsxMarker}+.${table.jsxTag}) :is(:nth-last-child(2),:last-child),
 /* jsx attributes { } */
@@ -93,7 +124,7 @@ ${table.root} .${table.jsxMarker}:has(+ .${table.text}), */
 ${table.root}>.${table.jsxMarker}:first-child,
 ${table.root}:has(:nth-child(3).${table.jsxTag}) :nth-child(2).${table.jsxMarker},
 /* < after the return keyword */
-${table.root}:has(:nth-child(2).${derived.singleLineControlKeyword}+.${table.jsxMarker}+.${table.jsxTag}) :nth-child(4).${table.jsxMarker},
+${table.root}:has(:nth-child(2).${derived.singleLineControlKeyword}+.${table.jsxMarker}+:is(.${table.jsxTag},.${table.domTag})) :nth-child(4).${table.jsxMarker},
 
 /* quotation marks ${derived.singleQuote ? '*/': ''}
 ${table.root} .${table.quotationMark}:not(:last-child):not(:has(+ :is(.${table.jsxMarker},.${table.other},.${table.quotationMark},.${table.jsxBracket},.${table.blank},.${table.quotationMark}+.${table.text}))),
@@ -123,6 +154,5 @@ ${table.root}:has(:is(.${table.brace},.${table.text})+.${table.blank}.${table.br
   }
 `;
 
-const styles = generateStyles(Table, Derived);
-const webStyles = generateStyles(webTable, webDerived);
+const styles = generateStyles(emptyVsCode);
 console.log(styles);
